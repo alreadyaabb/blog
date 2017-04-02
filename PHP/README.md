@@ -1,5 +1,20 @@
 # PHP
 
+## Basic Syntax
+
+```php
+<?php
+include_once "mylib.php"
+
+class MyClass {
+    public function __construct() {
+        echo "Hello, PHP!";
+    }
+}
+?>
+```
+
+
 References:
 
 * [Official Website](http://php.net)
