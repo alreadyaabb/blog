@@ -20,4 +20,5 @@ git push
 ## References
 
 * [Git Pro](https://git-scm.com/book/en/v2)
+* [Git GUI Clients](https://git-scm.com/downloads/guis)
 
