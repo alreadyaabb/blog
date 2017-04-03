@@ -50,7 +50,7 @@ localhost 改为运行程序时访问的URL地址，在 Upload Directory 中填�
 ![NetBeans 
 SFTP配置1](https://github.com/alreadyaabb/blog/blob/master/images/netbeans-01.png)
 
-！[NetBeans 
+![NetBeans 
 SFTP配置2](https://github.com/alreadyaabb/blog/blob/master/images/netbeans-02.png)
 
 ### 用 XDebug 实现远程调试
