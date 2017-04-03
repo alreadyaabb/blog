@@ -27,8 +27,25 @@ apt install apache2 apache2-utils php php-xdebug
 
 ### NetBeans 安装和配置
 
-到 Oracle 官网下载最新的 JDK，并到 NetBeans官网下载最新版本的 PHP 开发环境安装即可。
-由于笔者并不熟悉Java环境的配置，这里请自行 Google .
+> 因为笔者使用的是 Windows 操作系统，所以这里仅介绍 Windows 下 NetBeans 的安装。
+
+NetBeans 是基于 Java 开发的集成开发环境，所以想要 NetBeans 能正常运行，需要首先安装 JDK ，
+先到 Oracle 的官网下载最新版本的 JDK ，如下图：
+
+![JDK 
+Download](https://github.com/alreadyaabb/blog/blob/master/images/jdk-download.
+png)
+
+根据提示直接安装即可，不需要做 *任何配置* 。
+
+找到 NetBeans 的官网，下载最新版本的 NetBeans For PHP 版本，如下图：
+
+![NetBeans 
+Download](https://github.com/alreadyaabb/blog/blob/master/images/netbeans-
+download .
+png)
+
+根据提示安装即可。
 
 #### 远程项目开发和部署
 
