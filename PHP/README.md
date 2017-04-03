@@ -79,16 +79,13 @@ xdebug.remote_handler=dbgp
 XDebug配置](https://github.com/alreadyaabb/blog/blob/master/images/netbeans-03.png
 )
 1. 点击 Tools 选择 Options 将 Debugger Port 更改为与服务器中的端口号一致
-
 2. 将 Watches and Balloon Evaluation , Show Requested URLs , Show Debugger 
 Console 勾选
 
 第三步在 XShell 中配置 XDebug：
 
 1. 点击 File 选择 New 新建一个 Session ，在 Name 中为 Session 命名，在 Host 中填写主机 IP 地址。
-
 2. 点击窗口左侧的 Tunneling 然后点击右侧的 Add... 按钮打开 Forwarding Rule 窗口。
-
 3. 将 Type 改为 Remote ，在 Source Host 中填写服务器的 IP 地址，在 Listening Port 
 中填写与服务器端口一致的端口号，在 Destination Host 中选择 localhost ，在 Destination Port 中填写与 
 NetBeans 端口号一致的端口号。
