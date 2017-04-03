@@ -48,8 +48,10 @@ localhost 改为运行程序时访问的URL地址，在 Upload Directory 中填�
 2. 当完成代码时，右键单击 Source Files 文件夹选择 Upload 进行文件上传。
 
 ![NetBeans 
-SFTP配置](https://github.com/alreadyaabb/blog/blob/master/images/netbeans-01.png)
+SFTP配置1](https://github.com/alreadyaabb/blog/blob/master/images/netbeans-01.png)
 
+！[NetBeans 
+SFTP配置2](https://github.com/alreadyaabb/blog/blob/master/images/netbeans-02.png)
 
 ### 用 XDebug 实现远程调试
 
