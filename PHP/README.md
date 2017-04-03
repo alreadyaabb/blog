@@ -32,18 +32,15 @@ apt install apache2 apache2-utils php php-xdebug
 NetBeans 是基于 Java 开发的集成开发环境，所以想要 NetBeans 能正常运行，需要首先安装 JDK ，
 先到 Oracle 的官网下载最新版本的 JDK ，如下图：
 
-![JDK 
-Download](https://github.com/alreadyaabb/blog/blob/master/images/jdk-download.
-png)
+![JDK Download](https://github.com/alreadyaabb/blog/blob/master/images/jdk-
+download.png)
 
 根据提示直接安装即可，不需要做 *任何配置* 。
 
 找到 NetBeans 的官网，下载最新版本的 NetBeans For PHP 版本，如下图：
 
-![NetBeans 
-Download](https://github.com/alreadyaabb/blog/blob/master/images/netbeans-
-download .
-png)
+![NetBeans Download](https://github.com/alreadyaabb/blog/blob/master/images/
+netbeans-download.png)
 
 根据提示安装即可。
 
