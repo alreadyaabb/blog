@@ -32,7 +32,8 @@ apt install apache2 apache2-utils php php-xdebug
 
 #### 远程项目开发和部署
 
-![NetBeans SFTP配置]()
+![NetBeans 
+SFTP配置](https://github.com/alreadyaabb/blog/blob/master/images/netbeans-01.png)
 
 
 ### 用 XDebug 实现远程调试
