@@ -10,6 +10,7 @@
 * [XDebug 2.4.0](https://xdebug.org/)
 * [XShell 5](https://www.netsarang.com/xshell_download.html)
 * [MobaXterm 9.3](http://mobaxterm.mobatek.net/)
+* [Oracle JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
 ## PHP 开发环境搭建
 
