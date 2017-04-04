@@ -1,6 +1,6 @@
 # Git Skills and Tips
 
-## Basic Operations
+## 基础操作
 
 ### Clone, Pull, Commit and Push
 
@@ -15,6 +15,20 @@ git pull
 git add * -A
 git commit -m"A comment about this modification"
 git push
+```
+
+### Checkout, Branch
+
+```shell
+# Create a new local branch
+git checkout -b new_branch
+# Do some modifications
+# ...
+# Commit the changes to local branch
+git add * -A
+git commit -m"Messages"
+# Push the branch to remote repository
+git push "origin" new_branch:new_branch
 ```
 
 ## References
