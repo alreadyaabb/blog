@@ -115,7 +115,7 @@ sudo /etc/init.d/apache2 restart
 ```shell
 kill -9 $(lsof -t -i tcp:9000)
 ```
-使用此条命令可以将占用 9000 的端口强制关闭。
+    使用此条命令可以将占用 9000 的端口强制关闭。
 
 References:
 
