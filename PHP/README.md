@@ -85,6 +85,7 @@ xdebug.remote_host=127.0.0.1
 xdebug.remote_port=9000
 xdebug.remote_handler=dbgp
 ```
+**切记**:配置过服务器的文件后，一定要重启 Apache 服务器。
 
 第二步在 NetBeans 中配置 XDebug：
 
@@ -103,20 +104,22 @@ Console 勾选
 中填写与服务器端口一致的端口号，在 Destination Host 中选择 localhost ，在 Destination Port 中填写与 
 NetBeans 端口号一致的端口号。
 
+**注意** 一般会出现的问题有：
+1. 更改完服务器配置忘记重启 Apache 服务器。
+解决方法：
+```shell
+sudo /etc/init.d/apache2 restart
+```
+2. 9000 端口被占用。
+解决方法：
+```shell
+kill -9 $(lsof -t -i tcp:9000)
+```
+使用此条命令可以将占用 9000 的端口强制关闭。
+
 References:
 
 * [Official Website](http://php.net)
 * [PSR](http://www.php-fig.org/)
 * [PHP100](http://www.php100.com/)
-
-
-
-
-
-
-
-
-
-
-
 
