@@ -45,7 +45,7 @@ git push
 
 一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日期文件，或者编译过程中创建的临时文件等。在这种情况下，我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式。
 
-### the example of gitignore
+#### the example of gitignore
 
 ```ini
 # no .a files
