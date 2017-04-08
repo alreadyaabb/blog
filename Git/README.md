@@ -67,6 +67,15 @@ doc/*.txt
 doc/**/*.pdf
 ```
 
+### Git 移除文件
+
+```shell
+#将指定文件从已跟踪文件清单及工作目录中删除
+$ git rm 
+
+#
+```
+
 ## References
 
 * [Git Pro](https://git-scm.com/book/en/v2)
