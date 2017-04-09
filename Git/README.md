@@ -81,7 +81,6 @@ $ git rm --cached
 ```
 
 ### Git 移动文件
-
 ```shell
 #命令基本语法
 $ git mv file_from file_to
