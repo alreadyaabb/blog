@@ -80,6 +80,20 @@ $ git rm
 $ git rm --cached
 ```
 
+### Git 移动文件
+
+```shell
+#命令基本语法
+$ git mv file_from file_to
+```
+
+这句命令相当于下面三条命令：
+```shell
+$ mv file_from file_to
+$ git rm file_from
+$ git add file_to
+```
+
 ## References
 
 * [Git Pro](https://git-scm.com/book/en/v2)
