@@ -131,8 +131,8 @@ Table 1. git log --pretty=format 常用的选项
 #具体用法
 $ git log --pretty=format:"%h %s" --graph
 ```
-![Git配图08](http://github.com/alreadyaabb/blog/blob/master/image/Git08.png)
-![Git配图09](http://github.com/alreadyaabb/blog/blob/master/image/Git09.png)
+![Git配图08](https://github.com/alreadyaabb/blog/blob/master/images/Git08.png)
+![Git配图09](https://github.com/alreadyaabb/blog/blob/master/images/Git09.png)
 
 以上只是简单介绍了一些 git log 命令支持的选项。git log 的常用选项列出了我们目前涉及到的和没涉及到的选项，以及它们是如何影响 log 命令的输出的：
 
