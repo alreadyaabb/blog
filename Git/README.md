@@ -125,6 +125,31 @@ Table 1. git log --pretty=format 常用的选项
 |%cd   |提交日期|
 |%cr   |提交日期，按多久以前的方式显示|
 |%s    |提交说明|
+
+当 oneline 或 format 与另一个 log 选项 --graph 结合使用时尤其有用。这个选项添加了一些 ASCII 字符串来形象地展示了你的分支、合并历史。
+```shell
+#具体用法
+$ git log --pretty=format:"%h %s" --graph
+```
+![Git配图08](http://github.com/alreadyaabb/blog/master/image/Git08)
+![Git配图09](http://github.com/alreadyaabb/blog/master/image/Git09)
+
+以上只是简单介绍了一些 git log 命令支持的选项。git log 的常用选项列出了我们目前涉及到的和没涉及到的选项，以及它们是如何影响 log 命令的输出的：
+
+Table 2. git log 的常用选项
+
+|选项|说明|
+|----|----|
+|-p|按补丁格式显示每个更新之间的差异|
+|--stat|显示每次更新的文件修改统计信息|
+|--shortstat|只显示 --stat 中最后的行数修改添加移除统计|
+|--name-only|仅在提交信息后显示已修改的文件清单|
+|--name-status|显示新增、修改、删除的文件清单|
+|--abbrev-commit|仅显示 SHA-1 的前几个字符，而非所有的40个字符|
+|-relative-date|使用较短的相对时间显示(比如,"2 weeks ago")|
+|--graph|显示 ASCII 图形表示的分支合并历史|
+|--pretty|使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format(后跟指定格式)|
+
 ## References
 
 * [Git Pro](https://git-scm.com/book/en/v2)
