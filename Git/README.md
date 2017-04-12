@@ -177,6 +177,55 @@ Table 3. 限制 git log 输出的选项
 |--grep|仅显示含指定关键字的提交|
 |-S|仅显示添加或移除了某个关键字的提交|
 
+### 撤销操作
+在任何阶段，你都有可能想要撤销某些操作。下面这一节讲述的就是如何撤销操作。
+在开始之前，需要大家注意的就是，有些撤销操作是**不可逆**的。这是在使用 Git 的过程中，会因为操作失误而导致之前的工作丢失的少有几个地方之一。
+有时候我们提交完了才发现楼倒了几个文件没有添加，或者提交信息写错了。此时，可以运行带有 --amend 选项的提交命令尝试重新提交：
+```shell
+$ git commit --amend
+```
+这个命令会将暂存区中的文件提交。如果自上次提交以来你还未做任何修改(例如，在上次提交后马上执行了此命令)，那么快照会保持不变，而你所修改的只是提交信息。
+例如，你提交后发现忘记了暂存某些需要的修改，可以像下面这样操作：
+```shell
+$ git commit -m "initial commit"
+$ git add forgotten_file
+$ git commit --amend
+```
+最终你只会有一个提交-第二次提交将代替第一次提交的结果。
+
+#### 取消暂存的文件
+接下来将讲解如何操作暂存区域与工作目录中已修改的文件。这些命令在修改文件状态的同时，也会提示如何撤销操作。例如，你已经修改了两次文件并且想要将它们作为两次独立的修改提交，但是却意外地输入了 git add * 暂存了它们两个。如何只取消暂存两个中的一个呢？git status 命令提示了你：
+```shell
+$ git add *
+$ git status
+On branch master
+Changes to be committen:
+   (use "git reset HEAD <file>..." to unstage)
+
+   renamed:  README.md -> README
+   modified: CONTRIBUTING.md
+```
+在 "Changes to be committed" 文字正下方，提示使用 git reset HEAD <file>... 来取消暂存。所以，我们可以这样来取消暂存 CONTRIBUTING.md 文件:
+![Git10.png](https://github.com/alreadyaabb/blog/blob/master/images/Git10.png)
+*Note*:调用时加上 --hard 选项可以令 git reset 成为一个危险命令(可以导致工作目录中所有当前进度**丢失**)，但本例中工作目录内的文件并不会被修改。不加选项地调用 git reset 并不危险——它只会修改暂存区域。
+
+#### 撤销对文件的修改
+如果你并不想保存对 CONTRIBUTING.md 文件的修改怎么办？你该如何方便地撤销修改-将它还原成上次提交时的样子(或者刚克隆完的样子，或者刚把它放入工作目录时的样子)？幸运的是，git status 也告诉了你应该如何做。在最后一个例子中，未暂存区域是这样：
+![Git11.png](https://github.com/alreadyaabb/blog/blob/master/images/Git11.png)
+
+它非常清楚地告诉了你如何撤销之前所做的修改。让我们来按照提交执行：
+```shell
+$ git checkout -- CONTRIBUTING.md
+$ git status
+On branch master
+Changes to be committed:
+   (use "git reset HEAD <file>..." to unstage)
+
+   renamed:  README.md -> README
+```
+可以看到那些修改已经被撤销了。
+*Important*:你需要知道 git checkout -- [file] 是一个危险的命令，这很重要。你对那个文件做的任何修改都会消失-你只是拷贝了另一个文件来覆盖它。除非你确实清楚不想要那个文件了，否则不要使用这个命令。
+记住，在 Git 中任何*已提交的*东西几乎总是可以恢复的。甚至那些被删除的分支中的提交或使用 --amend 选项覆盖的提交也可以恢复。然而，任何你未提交的东西丢失后很可能再也找不到了。
 ## References
 
 * [Git Pro](https://git-scm.com/book/en/v2)
