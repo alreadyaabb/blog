@@ -276,6 +276,54 @@ $ git push origin master
 如果因为一些原因想要移除一个远程仓库-你已经从服务器上搬走了或不再想使用某一个特定的镜像了，又或者某一个贡献者不再贡献了-可以使用 git remote rm :
 ![Git20.png](https://github.com/alreadyaabb/blog/blob/master/images/Git20.png)
 
+### 打标签
+像其他版本控制系统(VCS)一样，Git 可以给历史中的某一个提交打上标签，以示重要。比较有代表性的是人们会使用这个功能来标记发布结点(v1.0 等等)。在本节中，你将会学会如何列出已有的标签、如何创建新标签、以及不同类型的标签分别是什么。
+
+#### 列出标签
+在 Git 中列出已有的标签是非常简单直观的。只需要输入 git tag：
+![Git21.png](https://github.com/alreadyaabb/blog/blob/master/images/Git21.png)
+这个命令以字母顺序列出标签：但是它们出现的顺序并不重要。
+你也可以使用特定的模式查找标签。例如，Git 自身的源代码仓库包含标签的数量超过 500 个。如果只对 1.8.5 系列感兴趣，可以运行：
+![Git22.png](https://github.com/alreadyaabb/blog/blob/master/images/Git22.png)
+
+#### 创建标签
+Git 使用两种主要类型的标签：轻量标签(lightweight)与附注标签(annotated)。
+一个轻量标签很像一个不会改变的分支-它只是一个特定提交的引用。
+然而，附注标签是存储在 Git 数据库中的一个完整对象。它们是可以被校验的；其中包含打标签者的名字、电子邮件地址、日期时间；还有一个标签信息；并且可以使用 GNU Privacy Guard (GPG) 签名与验证。通常建议创建附注标签，这样你可以拥有以上所有信息；但是如果你只是想用一个临时的标签，或者因为某些原因不想要保存那些信息，轻量标签也是可用的。
+
+#### 附注标签
+在 Git 中创建一个附注标签是很简单的。最简单的方式是当你在运行 tag 命令是指定 -a 选项：
+![Git23.png](https://github.com/alreadyaabb/blog/blob/master/images/Git23.png)
+-m 选项指定了一条将会存储在标签中的信息。如果没有为附注标签指定一条信息，Git 会运行编辑器要求你输入信息。
+通过使用过 git show 命令可以看到标签信息与对应的提交信息：
+![Git24.png](https://github.com/alreadyaabb/blog/blob/master/images/Git24.png)
+输入显示了打标签的信息、打标签的日期时间、附注信息，然后显示具体的提交信息。
+
+#### 轻量标签
+另一个给提交打标签的方式是使用轻量标签。轻量标签本质上是将提交校验和存储到一个文件中-没有保存任何其他信息。创建轻量标签，不需要使用 -a、-s 或 -m 选项，只需要提供标签名字：
+![Git25.png](https://github.com/alreadyaabb/blog/blob/master/images/Git25.png)
+这时，如果在标签上运行 git show ，你不会看到额外的标签信息。命令只会显示出提交信息：
+![Git26.png](https://github.com/alreadyaabb/blog/blob/master/images/Git26.png)
+
+#### 后期打标签
+你也可以对过去的提交打标签。假设提交历史是这样的：
+![Git27.png](https://github.com/alreadyaabb/blog/blob/master/images/Git27.png)
+现在，假设在 v1.2 时你忘记给项目打标签，也就是在 "updated rakefile" 提交。你可以在之后补上标签。要在那个提交上打标签，你需要在命令的末尾指定提交的校验和(或部分校验和)：
+![Git28.png](https://github.com/alreadyaabb/blog/blob/master/images/Git28.png)
+可以看到你已经在那次提交上打上标签了：
+![Git29.png](https://github.com/alreadyaabb/blog/blob/master/images/Git29.png)
+
+#### 共享标签
+默认情况下，git push 命令不不会传送标签到远程仓库服务器上。在创建完标签后你必须显式地推送标签到共享服务器上。这个过程就像共享远程分支一样-你可以运行 git push origin [tagname]。
+![Git30.png](https://github.com/alreadyaabb/blog/blob/master/images/Git30.png)
+如果想要一次性推送很多标签，也可以使用带有 --tags 选项 git push 命令。这将会把所有不在远程仓库服务器上的标签全部传送到那里。
+![Git31.png](https://github.com/alreadyaabb/blog/blob/master/images/Git31.png)
+现在，当所有人从仓库中克隆或拉取，他们也能得到你的那些标签。
+
+#### 检出标签
+在 Git 中你并不能真的检出一个标签，因为它们并不能像分支一样来回移动。如果你想要工作目录与仓库中特定的新标签版本完全一样，可以使用 git checkout -b [branchname] [tagname] 在特定的标签上创建一个新分支：
+![Git32.png](https://github.com/alreadyaabb/blog/blob/master/images/Git32.png)
+当然，如果在这之后又进行了一次提交，version2 分支会因为改动向前移动了，那么 version2 分支就会和 v2.0.0 标签稍微有些不同，这时就应该当心了。
 
 ## References
 
