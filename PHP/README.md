@@ -138,7 +138,9 @@ echo "Last statement";
 <p>This will also be ignored by PHP and displayed by the browser.</p>
 ```
 这将如预期中的运行，因为当 PHP 解释器碰到 ?> 结束标记时就简单地将其后内容原样输出(除非马上紧接换行-见指令分隔符)直到碰到下一个开始标记；例如是处于条件语句中间时，此时 PHP 解释器会根据条件判断来决定哪些输出，哪些跳过。见下例。
+
 使用条件结构：
+
 Example #1 使用条件的高级分离术
 ```php
 <?php if($expression == true); ?>
@@ -147,19 +149,30 @@ Example #1 使用条件的高级分离术
     Otherwise this will show.
 <?php endif; ?>
 ```
+
 上例中 PHP 将跳过条件语句未打成的段落，即使该段落位于 PHP 开始和结束标记之外。由于 PHP 解释器会在条件未达成时直接跳过该条件语句块，因此 PHP 会根据条件来忽略之。
+
 要输出大段文本时，跳出 PHP 解析模式通常比将文本通过 echo 或 print 输出更有效率。
+
 可以在 PHP 中使用四对不同的开始和结束标记。其中两种，<?php ?> 和 <script language="php"></script>总是可用的。另两种是短标记和 ASP 风格标记很方便，但移植性较差，通常不推荐使用。
+
 **Note:**
 此外注意如果将 PHP 嵌入到 XML 或 XHTML 中则需要使用 <?php ?> 标记以保持符合标准。
+
 Example #2 PHP 开始和结束标记
+
 ![php1.png](https://github.com/alreadyaabb/blog/blob/master/images/PHP01.png)
+
 上例中的1和2中使用的标记总是可用的，其中示例1中是最常用的，并建议使用的。短标记(上例3)仅在通过 php.ini 配置文件中的指令 short_open_tag 打开后才可用，或者在 PHP 编译时加入了 --enable-short-tags 选项。
+
 ASP 风格标记(上例4)仅在通过 php.ini 配置文件中的指令 asp_tags 打开后才可使用。
+
 **Note:**
 在以下情况应避免使用短标记：开发需要再次发布的程序或者库，或者在用户不能控制的服务器上开发。因为目标服务器可能不支持短标记。为了代码的移植及发行，确保不要使用短标记。
+
 **Note:**
 在 PHP5.2 和之前的版本中，解释器不允许一个文件的全部内容就是一个开始标记 <?php .自 PHP5.3 起则允许此种文件，但要开始标记后有一个或更多空白格符。
+
 **Note:**
 自 PHP5.4 起，短格式的 echo 标记<?= 总会被识别并且合法，而不管short_open_tag 的设置是什么。
 
@@ -172,6 +185,7 @@ ASP 风格标记(上例4)仅在通过 php.ini 配置文件中的指令 asp_tags 
 <?php echo "This is a test" ?>
 <?php echo 'We omitted the last closing tag';
 ```
+
 **Note:**
 文件末尾的 PHP 代码段结束标记可以不要，有些情况下当使用 include 或者 require 时省略掉会更好些，这样不期望的空白符就不会出现在文件末尾，之后仍然可以输出响应标头。在使用输出缓冲时也很便利，就不会看到由包含文件生成的不期望的空白符
 
@@ -192,7 +206,9 @@ PHP 支持 C，C++ 和 Unix Shell 风格(Perl 风格)的注释。例如：
 example</h1>
 <p>The header above will say 'This is an example'.</p>
 ```
+
 C 风格的注释在碰到第一个 */ 时结束。要确保不要嵌套 C 风格的注释。试图注释掉一大块代码时很容易出现该错误。
+
 ```php
 <?php
 /*
@@ -223,14 +239,19 @@ PHP 支持 9 种原始数据类型。
 * array|object(数组|对象类型)
 * void(无类型)
 以及伪变量$...。
+
 可能还会读到一些关于"双精度(double)"类型的参考。实际上 double 和 float 是相同的，由于一些历史的原因，这两个名称同时存在。
+
 变量的类型通常不是由程序员设定的，确切地说，是由 PHP 根据该变量使用的上下文在运行时决定的。
+
 **Note:**
 如果想查看某个表达式的值和类型，用 var_dump() 函数。
 如果只是想得到一个易读懂的类型的表达方式用于调试，用 gettype() 函数。要检验某个类型，*不要*用 gettype(),而用 is_type() 函数。以下是一些范例：
+
 ![PHP02.png](https://github.com/alreadyaabb/blog/blob/master/images/PHP02.png)
 
-如果要将一个变量强制转换为某类型，可以对其使用**强制转换**或者**settype()**函数。
+如果要将一个变量强制转换为某类型，可以对其使用 **强制转换** 或者 **settype()** 函数。
+
 注意变量根据其当时的类型在特定场合下会表现出不同的值。
 
 References:
