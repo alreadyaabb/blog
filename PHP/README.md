@@ -239,8 +239,9 @@ PHP 支持 9 种原始数据类型。
 **Note:**
 如果想查看某个表达式的值和类型，用 var_dump() 函数。
 如果只是想得到一个易读懂的类型的表达方式用于调试，用 gettype() 函数。要检验某个类型，*不要*用 gettype(),而用 is_type() 函数。以下是一些范例：
-![PHP02.png](https://github.com/alreadyaabb/blog/blob/master/images/PHP02.png)
 ```
+![PHP02.png](https://github.com/alreadyaabb/blog/blob/master/images/PHP02.png)
+
 如果要将一个变量强制转换为某类型，可以对其使用**强制转换**或者**settype()**函数。
 注意变量根据其当时的类型在特定场合下会表现出不同的值。
 
