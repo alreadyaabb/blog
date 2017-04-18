@@ -117,7 +117,8 @@ kill -9 $(lsof -t -i tcp:9000)
 使用此条命令可以将占用 9000 的端口强制关闭。
 ```
 
-### PHP标记
+### 基本语法
+#### PHP标记
 当解析一个文件时，PHP 会寻找起始和结束标记，也就是 <?php 和 ?> ,这告诉 PHP 开始和停止解析二者之间的代码。此种解析方式使得 PHP 可以被嵌入到各种不同的文档中去，而任何起始和结束标记之外的部分都会被 PHP 解析器忽略。
 PHP 也允许使用短标记 <? 和 ?> ,但不鼓励使用。只有通过激活 php.ini 中的 short_open_tag 配置指令或者在编译 PHP 时使用了配置选项 --enable-short-tags 时才能使用短标记。
 如果文件内容是纯 PHP 代码，最好在文件末尾删除 PHP 结束标记。这可以避免在 PHP 结束标记之后万一意外加入了空格或者换行符，会导致 PHP 开始输出这些空白，而脚本中此时并无输出的意图。
@@ -129,7 +130,7 @@ echo "Last statement";
 // 脚本至此结束，并无结束标记
 ```
 
-### 从 HTML 中分离
+#### 从 HTML 中分离
 凡是在一对开始和结束标记之外的内容都会被 PHP 解析器忽略，这使得 PHP 文件可以具备混合内容。可以使 PHP 嵌入到 HTML 文档中去，如下例所示：
 ```php
 <p>This is going to be ignored by PHP and displayed by the browser.</p>
@@ -169,6 +170,80 @@ ASP 风格标记(上例4)仅在通过 php.ini 配置文件中的指令 asp_tags 
 **Note:**
 自 PHP5.4 起，短格式的 echo 标记<?= 总会被识别并且合法，而不管short_open_tag 的设置是什么。
 ```
+
+#### 指令分隔符
+同 C 或 Perl 一样，PHP 需要在每个语句后用分号结束指令。一段 PHP 代码中的结束标记隐含表示了一个分号；在一个 PHP 代码段中的最后一行可以不用分号结束。如果后面还有新行，则代码段的结束标记包含了行结束。
+```php
+<?php
+    echo "This is a test";
+?>
+<?php echo "This is a test" ?>
+<?php echo 'We omitted the last closing tag';
+```
+```note
+**Note:**
+文件末尾的 PHP 代码段结束标记可以不要，有些情况下当使用 include 或者 require 时省略掉会更好些，这样不期望的空白符就不会出现在文件末尾，之后仍然可以输出响应标头。在使用输出缓冲时也很便利，就不会看到由包含文件生成的不期望的空白符
+```
+
+#### 注释
+PHP 支持 C，C++ 和 Unix Shell 风格(Perl 风格)的注释。例如：
+```php
+<?php
+    echo "This is a test";// This is a one-line c++ style comment
+    /* This is a multi line comment
+       yet another line of comment*/
+    echo "This is yet another test";
+    echo 'One Final Test';# This is a one-line shellstyle comment
+?>
+```
+单行注释仅仅注释到行末或者当前的 PHP 代码块，视乎哪个首先出现。这意味着在 //...?> 或者 #...?>之后的 HTML 代码将被显示出来 :?> 跳出了 PHP 模式并返回了 HTML 模式，// 或 # 并不能影响到这一点。如果启用了 asp_tags 配置选项，其行为和 //%> 或 #%> 相同。不过，</script> 标记在单行注释中不会跳出 PHP 模式。
+```php
+<h1>This is an <?php # echo 'simple'; ?>
+example</h1>
+<p>The header above will say 'This is an example'.</p>
+```
+C 风格的注释在碰到第一个 */ 时结束。要确保不要嵌套 C 风格的注释。试图注释掉一大块代码时很容易出现该错误。
+```php
+<?php
+/*
+    echo "This is a test";/* This comment will cause a problem */
+*/
+?>
+```
+
+### 类型
+#### 简介
+PHP 支持 9 种原始数据类型。
+四种标量类型：
+* boolean(布尔型)
+* integer(整型)
+* float(浮点型，也称作double)
+* string(字符串)
+三种复合类型：
+* array(数组)
+* object(对象)
+* callable(可调用)
+最后是两种特殊类型：
+* resource(资源)
+* NULL(无类型)
+为了确保代码的易读性，本文还介绍了一些伪类型：
+* mixed(混合类型)
+* number(数字类型)
+* callback(回调类型，又称为callable)
+* array|object(数组|对象类型)
+* void(无类型)
+以及伪变量$...。
+可能还会读到一些关于"双精度(double)"类型的参考。实际上 double 和 float 是相同的，由于一些历史的原因，这两个名称同时存在。
+变量的类型通常不是由程序员设定的，确切地说，是由 PHP 根据该变量使用的上下文在运行时决定的。
+```note
+**Note:**
+如果想查看某个表达式的值和类型，用 var_dump() 函数。
+如果只是想得到一个易读懂的类型的表达方式用于调试，用 gettype() 函数。要检验某个类型，*不要*用 gettype(),而用 is_type() 函数。以下是一些范例：
+![PHP02.png](https://github.com/alreadyaabb/blog/blob/master/images/PHP02.png)
+```
+如果要将一个变量强制转换为某类型，可以对其使用**强制转换**或者**settype()**函数。
+注意变量根据其当时的类型在特定场合下会表现出不同的值。
+
 References:
 
 * [Official Website](http://php.net)
