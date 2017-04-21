@@ -325,6 +325,36 @@ Git 使用两种主要类型的标签：轻量标签(lightweight)与附注标签
 ![Git32.png](https://github.com/alreadyaabb/blog/blob/master/images/Git32.png)
 当然，如果在这之后又进行了一次提交，version2 分支会因为改动向前移动了，那么 version2 分支就会和 v2.0.0 标签稍微有些不同，这时就应该当心了。
 
+### 起别名
+在我们结束本章 Git 基础之前，正好有一个小技巧可以使你的 Git 体验更简单、容易、熟悉：别名。我们不会在之后的章节中引用到或假定你使用过它们，但是你大概应该知道如何使用它们。
+Git 并不会在你输入部分命令时自动推出你想要的命令。如果不想每次都输入完整的 Git 命令，可以通过 git config 文件来轻松地为每一个命令设置一个别名。这里有一些例子你可以试试：
+```shell
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+```
+这意味着，当要输入 git commit 时，只需要输入 git ci 。随着你继续不断地使用 Git ,可能也会经常使用其它命令，所以创建别名时不要犹豫。
+在创建你认为应该存在的命令时这个技术会很有用。例如，为了解决取消暂存文件的易用性问题，可以向 Git 中添加你自己的取消暂存别名：
+```shell
+$ git config --global alias.unstage 'reset HEAD --'
+```
+这会使下面的两个命令等价：
+```shell
+$ git unstage fileA
+$ git reset HEAD -- fileA
+```
+这样看起来更清楚一些。通常也会添加一个 last 命令，像这样：
+```shell
+$ git config --global alias.last 'log -l HEAD'
+```
+这样，可以轻松地看到最后一次提交：
+![Git33.png](https://github.com/alreadyaabb/blog/blob/master/images/Git33.png)
+可以看出，Git 只是简单地将别名替换为对应的命令。然而，你可以想要执行外部命令，而不是一个 Git 子命令。如果是那样的话，可以在命令前面加入 ! 符号。如果你自己要写一些与 Git 仓库协作的工作的话，那会很有用。我们现在演示将 git visual 定义为 gitk 的别名：
+```shell
+$ git config --global alias.visual '!gitk'
+```
+
 ## References
 
 * [Git Pro](https://git-scm.com/book/en/v2)
