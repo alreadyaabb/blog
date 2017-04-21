@@ -349,7 +349,9 @@ $ git reset HEAD -- fileA
 $ git config --global alias.last 'log -l HEAD'
 ```
 这样，可以轻松地看到最后一次提交：
+
 ![Git33.png](https://github.com/alreadyaabb/blog/blob/master/images/Git33.png)
+
 可以看出，Git 只是简单地将别名替换为对应的命令。然而，你可以想要执行外部命令，而不是一个 Git 子命令。如果是那样的话，可以在命令前面加入 ! 符号。如果你自己要写一些与 Git 仓库协作的工作的话，那会很有用。我们现在演示将 git visual 定义为 gitk 的别名：
 ```shell
 $ git config --global alias.visual '!gitk'
