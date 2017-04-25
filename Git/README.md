@@ -1,6 +1,6 @@
 # Git Skills and Tips
 
-## Basic Operations
+## 基础操作
 
 ### Clone, Pull, Commit and Push
 
@@ -17,6 +17,7 @@ git commit -m"A comment about this modification"
 git push
 ```
 
+<<<<<<< HEAD
 ## Git 基础知识
 
 ### state of Git
@@ -368,6 +369,20 @@ $ git config --global alias.visual '!gitk'
 ```shell
 $ git add README test.rb LICENSE
 $ git commit -m 'The initial commit of my project'
+=======
+### Checkout, Branch
+
+```shell
+# Create a new local branch
+git checkout -b new_branch
+# Do some modifications
+# ...
+# Commit the changes to local branch
+git add * -A
+git commit -m"Messages"
+# Push the branch to remote repository
+git push "origin" new_branch:new_branch
+>>>>>>> git_operations
 ```
 
 ## References
