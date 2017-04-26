@@ -370,12 +370,19 @@ git checkout -b new_branch
 # ...
 # Commit the changes to local branch
 git add * -A
-git commit -m"Messages"
+git commit -m "Messages"
 # Push the branch to remote repository
 git push "origin" new_branch:new_branch
 >>>>>>> git_operations
 ```
 
+#### merge
+
+```shell
+# merge B into A
+git checkout branchA
+git merge branchB
+```
 ## References
 
 
