@@ -47,3 +47,8 @@ StringBuffer 与 StringBuilder, 前者保证线程安全，后者不是，但单
 
 ### Linked List
 
+
+## Reference
+
+* [Leetcode 中文网](https://xuan.gitbooks.io/leetcode/content/zh-cn/index.html)
+* [Leetcode 官网](https://leetcode.com/)
