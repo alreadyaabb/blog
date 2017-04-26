@@ -365,8 +365,9 @@ $ git config --global alias.visual '!gitk'
 $ git add README test.rb LICENSE
 $ git commit -m 'The initial commit of my project'
 =======
-### Checkout, Branch
 ```
+### Checkout, Branch
+
 
 ```shell
 # Create a new local branch
