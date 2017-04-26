@@ -371,6 +371,7 @@ $ git add README test.rb LICENSE
 $ git commit -m 'The initial commit of my project'
 =======
 ### Checkout, Branch
+```
 
 ```shell
 # Create a new local branch
