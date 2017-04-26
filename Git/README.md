@@ -358,15 +358,9 @@ $ git config --global alias.last 'log -l HEAD'
 $ git config --global alias.visual '!gitk'
 ```
 
-###  分支简介
+###  分支
 
-#### 分支简介
-```shell
-$ git add README test.rb LICENSE
-$ git commit -m 'The initial commit of my project'
-=======
-```
-### Checkout, Branch
+#### Checkout, Branch
 
 
 ```shell
