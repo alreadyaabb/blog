@@ -395,6 +395,7 @@ git remote show (remote)
 
 远程分支以 (remote)/(branch) 形式命名。"remote" 为远程仓库名字，"origin" 为分支名字。
 远程仓库名字默认为 "origin"。
+
 **Note**:"origin" 并无特殊含义。远程仓库名字 "origin" 与分支名字 "master" 一样，在 Git 中并没有任何特别的含义一样。同时 "master" 是当你运行 git init 时默认的起始分支名字，原因仅仅是它的广泛使用，"origin" 是当你运行 git clone 时默认的远程仓库名字。如果你运行 git clone -o booyah，那么你默认的远程分支名字将会是 booyah/master。
 
 **当你仅仅运行 git init 创建版本库的时候，远程仓库 "origin" 是不会被创建的，只会创建分支 "master",只有当你运行 git clone 时，才会创建远程仓库 "origin"。**
