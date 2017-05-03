@@ -360,7 +360,7 @@ $ git config --global alias.visual '!gitk'
 
 ###  分支
 
-#### Checkout, Branch
+#### 分支的创建与更换——Checkout, Branch
 
 
 ```shell
@@ -376,13 +376,15 @@ git push "origin" new_branch:new_branch
 >>>>>>> git_operations
 ```
 
-#### merge
+#### 分支的合并——merge
 
 ```shell
 # merge B into A
 git checkout branchA
 git merge branchB
 ```
+
+
 ## References
 
 
