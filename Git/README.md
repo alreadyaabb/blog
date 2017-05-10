@@ -360,7 +360,7 @@ $ git config --global alias.visual '!gitk'
 
 ###  分支
 
-#### 分支的创建与更换——Checkout, Branch
+#### 分支的创建与更换——Branch,Checkout
 
 
 ```shell
