@@ -357,7 +357,9 @@ foreach ($array as list($a,$b)){
 ?>
 ```
 输出结果：
+
 ![PHP08](https://github.com/alreadyaabb/blog/blob/master/images/PHP08.png)
+
 list() 中的单元可以少于嵌套数组的，此时多出来的数组单元将被忽略：
 ```PHP
 <?php
@@ -372,7 +374,9 @@ foreach ($array as list($a)){
 ?>
 ```
 输出结果：
+
 ![PHP09](https://github.com/alreadyaabb/blog/blob/master/images/PHP09.png)
+
 如果 list() 中列出的单元多于嵌套数组则会发出一条消息级别的错误信息:
 ```PHP
 <?php
@@ -386,6 +390,7 @@ foreach ($array as list($a,$b,$c)){
 ?>
 ```
 输出结果:
+
 ![PHP10](https://github.com/alreadyaabb/blog/blob/master/images/PHP10.png)
 References:
 
