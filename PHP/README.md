@@ -421,6 +421,33 @@ while (++$i){
 }
 ?>
 ```
+
+### continue
+
+continue 在循环结构中用来跳过本次循环中剩余的代码并在条件求值为真时开始执行下一次循环。
+
+**Note:**注意在 PHP 中 switch 语句被认为是可以使用 continue 的一种循环结构。
+
+continue 接受一个可选的数字参数来决定跳过几重循环到循环结尾。默认值是1，即跳到当前循环末尾。
+省略 continue 后面的分号会导致混淆。以下例子示意了不应该这样做。
+```PHP
+<?php
+for ($i = 0;$i < 5; ++ $i){
+    if ($i == 2)
+        continue
+    print "$i\n";
+}
+?>
+```
+希望得到的结果是：
+
+![PHP11](https://github.com/alreadyaabb/blog/blob/master/images/PHP11.png)
+
+可实际的输出是：
+
+![PHP12](https://github.com/alreadyaabb/blog/blob/master/images/PHP12.png)
+
+因为整个 continue print "$i\n"; 被当作单一的表达式而求值，所以 print 函数只有在 $i ==2 为真时才被调用(print 的值被当成了上述的可选数字参数而传递给了 continue)。
 References:
 
 * [Official Website](http://php.net)
