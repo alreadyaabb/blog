@@ -459,6 +459,7 @@ switch 语句类似于具有同一个表达式的一系列 if 语句。很多场
 下面两个例子使用两种不同方法实现同样的事，一个用一系列的 if 和 elseif 语句，另一个用 switch 语句：
 
 **Example #1** switch 结构
+
 ```PHP
 <?php
 if ($i == 0){
@@ -483,6 +484,7 @@ switch ($i){
 ```
 
 **Example #2** switch 结构可以用字符串
+
 ```PHP
 <?php
 switch ($i){
@@ -498,7 +500,9 @@ switch ($i){
 }
 ?>
 ```
+
 **Note**:每条 case 语句段最后都要写上 break 。否则 PHP 将继续执行下一个 case 中的语句段。例如：
+
 ```PHP
 <?php
 switch ($i){
