@@ -452,9 +452,9 @@ for ($i = 0;$i < 5; ++ $i){
 ### switch
 switch 语句类似于具有同一个表达式的一系列 if 语句。很多场合下需要把同一个变量(或表达式)与很多不同的值比较，并根据它等于哪些值来执行不同的代码。这正是 switch 语句的用途。
 
-**Note:**注意和其它语言不同，continue 语句作用到 switch 上的作用类似于 break。如果在循环中有一个 switch 并希望 continue 到外层循环中的下一轮循环，用 continue 2。
+**Note**:注意和其它语言不同，continue 语句作用到 switch 上的作用类似于 break。如果在循环中有一个 switch 并希望 continue 到外层循环中的下一轮循环，用 continue 2。
 
-**Note:**注意 switch/case 作的是松散比较。
+**Note**:注意 switch/case 作的是松散比较。
 
 下面两个例子使用两种不同方法实现同样的事，一个用一系列的 if 和 elseif 语句，另一个用 switch 语句：
 
