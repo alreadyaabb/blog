@@ -448,6 +448,119 @@ for ($i = 0;$i < 5; ++ $i){
 ![PHP12](https://github.com/alreadyaabb/blog/blob/master/images/PHP12.png)
 
 因为整个 continue print "$i\n"; 被当作单一的表达式而求值，所以 print 函数只有在 $i ==2 为真时才被调用(print 的值被当成了上述的可选数字参数而传递给了 continue)。
+
+### switch
+switch 语句类似于具有同一个表达式的一系列 if 语句。很多场合下需要把同一个变量(或表达式)与很多不同的值比较，并根据它等于哪些值来执行不同的代码。这正是 switch 语句的用途。
+
+**Note:**注意和其它语言不同，continue 语句作用到 switch 上的作用类似于 break。如果在循环中有一个 switch 并希望 continue 到外层循环中的下一轮循环，用 continue 2。
+
+**Note:**注意 switch/case 作的是松散比较。
+
+下面两个例子使用两种不同方法实现同样的事，一个用一系列的 if 和 elseif 语句，另一个用 switch 语句：
+
+**Example #1** switch 结构
+```PHP
+<?php
+if ($i == 0){
+    echo "i equals 0";
+} elseif ($i == 1){
+    echo "i equals 1";
+} elseif ($i == 2){
+    echo "i equals 2";
+}
+switch ($i){
+    case 0:
+        echo "i equals 0";
+        break;
+    case 1:
+        echo "i equals 1";
+        break;
+    case 2:
+        echo "i equals 2";
+        break;
+}
+?>
+```
+
+**Example #2** switch 结构可以用字符串
+```PHP
+<?php
+switch ($i){
+    case "apple":
+        echo "i is apple";
+        break;
+    case "bar":
+        echo "i is bar";
+        break;
+    case "cake":
+        echo "i is cake";
+        break;
+}
+?>
+```
+**Note**:每条 case 语句段最后都要写上 break 。否则 PHP 将继续执行下一个 case 中的语句段。例如：
+```PHP
+<?php
+switch ($i){
+    case 0:
+        echo "i equals 0";
+    case 1:
+        echo "i equals 1";
+    case 2:
+        echo "i equals 2";
+}
+?>
+```
+这里如果 $i 等于 0，PHP 将执行所有的 echo 语句！如果 $i 等于 1，PHP 将执行后面两条 echo 语句。只有当 $i 等于 2 时，才会得到"预期"的结果——只显示"i equals 2"。
+
+利用 switch 语句的这一特点，我们可以简化代码书写。
+```PHP
+<?php
+switch ($i){
+    case 0:
+    case 1:
+    case 2:
+        echo "i is less than 3 but not negative";
+        break;
+    case 3:
+        echo "i is 3";
+}
+?>
+```
+一个 case 的特例是 default。它匹配了任何和其它 case 都不匹配的情况。例如：
+```PHP
+<?php
+switch ($i){
+    case 0:
+        echo "i equals 0";
+        break;
+    case 1:
+        echo "i equals 1";
+        break;
+    case 2:
+        echo "i equals 2";
+        break;
+    default:
+        echo "i is not equal to 0, 1 or 2";
+}
+?>
+```
+case 后的冒号可以用分号代替：
+```PHP
+<?php
+switch ($beer)
+{
+    case 'tuborg';
+    case 'carlsberg';
+    case 'heineken';
+        echo 'Good choice';
+        break;
+    default;
+        echo 'Please make a new selection...';
+        break;
+}
+?>
+```
 References:
 
 * [Official Website](http://php.net)
