@@ -161,3 +161,29 @@ ucwords(string)
 |参数|描述|
 |--|--|
 |string|必需。规定要转换的字符串。|
+
+## implode()
+```PHP
+implode(separator,array)
+```
+implode() 函数返回由数组元素组合成的字符串。
+**注释**:implode() 函数接受两种参数顺序。但是由于历史原因，explode() 是不行的，必须保证 separator 参数在 string 参数之前才行。
+**注释**:implode() 函数的 separator 参数是可选的。但是为了向后兼容，推荐您使用两个参数。
+**注释**:该函数是二进制安全的。
+
+|参数|描述|
+|---|---|
+|separator|可选。规定数组元素之间放置的内容。默认是""(空字符串)。|
+|array|必需。要组合为字符串的数组。|
+
+Example #1
+```PHP
+<?php
+$arr = array('Hello','World!','I','love','Shanghai!');
+echo implode(" ",$arr)."<br>";
+echo implode("+",$arr)."<br>";
+echo implode("-",$arr)."<br>";
+echo implode("X",$arr);
+?>
+```
+![implode](https://github.com/alreadyaabb/blog/blob/append_php_info/images/implode1.png)
