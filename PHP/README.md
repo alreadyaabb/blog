@@ -254,6 +254,82 @@ PHP 支持 9 种原始数据类型。
 
 注意变量根据其当时的类型在特定场合下会表现出不同的值。
 
+### 类型转换的判别
+PHP 在变量定义中不需要(或不支持)明确的类型定义;变量类型是根据使用该变量的上下文所决定的.也就是说，如果把一个 string 值赋给变量 $var ,$var 就成了一个 string .如果又把 integer 赋给 $var ,那它就成了一个 integer .
+```PHP
+<?php
+$foo = "1"; // $foo 是字符串(ASCII 49)
+$foo *= 2; // $foo 现在是一个整数(2)
+$foo = $foo *1.3; // $foo 现在是一个浮点数(2.6)
+$foo = 5 * "10 Little Piggies"; // $foo 是整数(50)
+$foo = 5 * "10 Small Pigs"; // $foo 是整数(50)
+?>
+```
+如果上面两个例子看上去古怪的话，参见**字符串转换为数值**.
+
+* [字符串转换为数值](http://php.net/manual/zh/language.types.string.php#language.types.string.conversion)
+
+如果要强制将一个变量当做某种类型来求值,参见**类型强制转换**一节.如果要改变一个变量的类型,参见**settype()**.
+
+* [类型强制转换](http://php.net/manual/zh/language.types.type-juggling.php#language.types.typecasting)
+* [settpye()](http://php.net/manual/zh/function.settype.php)
+
+如果想要测试本节中任何例子的话，可以用 var_dump() 函数.
+
+**Note**:自动转换为数组的行为目前没有定义.
+此外,由于 PHP 支持使用和数组下标同样的语法访问字符串下标,一下例子在所有 PHP 版本中都有效:
+```PHP
+<?php
+$a = 'car'; // $a is a string
+$a[0] = 'b'; // $a is still a string
+echo $a; // bar
+?>
+```
+#### 类型强制转换
+PHP 中的类型强制转换和 C 中的非常像:在要转换的变量之前加上用括号括起来的目标类型.
+```PHP
+<?php
+$foo = 10; // $foo is an integer
+$bar = (boolean) $foo; // $bar is a boolean
+?>
+```
+允许的强制转换有:
+
+* (int),(integer) - 转换为整形 integer
+* (bool),(boolean) - 转换为布尔类型 boolean
+* (float),(double),(real) - 转换为浮点型 float
+* (string) - 转换为字符串 string
+* (array) - 转换为数组 array
+* (object) - 转换为对象 object
+* (unset) - 转换为 NULL(PHP5)
+
+(binary)转换和 b 前缀转换支持为 PHP 5.2.1 新增.
+注意在括号内允许有空格和制表符,所以下面两个例子功能相同:
+```PHP
+<?php
+$foo = (int) $bar;
+$foo = ( int ) $bar;
+?>
+```
+将字符串文字和变量转换为二进制字符串:
+```PHP
+<?php
+$binary = (binary)$string;
+$binary = b"binary string";
+?>
+```
+**Note**:可以将变量放置在双引号中的方式来代替将变量转换成字符串:
+```PHP
+<?php
+$foo = 10; // $foo 是一个整数
+$str = "$foo"; // $str 是一个字符串
+$fst = (string) $foo; // $fst 也是一个字符串
+// 输出 "they are the same"
+if ($fst === $str){
+    echo "they are the same";
+}
+?>
+```
 ## 流程控制
 ### 流程控制的替代语法
 
