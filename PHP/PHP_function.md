@@ -187,3 +187,60 @@ echo implode("X",$arr);
 ?>
 ```
 ![implode](https://github.com/alreadyaabb/blog/blob/append_php_info/images/implode1.png)
+## settype()
+```PHP
+bool settype(mixed &$var , string $type)
+```
+settype() 函数将变量 var 的类型设置成 type.
+
+|参数|描述|
+|---|---|
+|var|要转换的变量.|
+|type|type 的可能值为:boolean,integer,float,string,array,object,null|
+
+返回值:成功时返回 true,或者失败时返回 false.
+
+Example #1 settype() 示例
+```PHP
+<?php
+$foo = "5bar"; //string
+$bar = true; // boolean
+settype($foo, "integer"); // $foo 现在是 5 (integer)
+settype($bar, "string"); // $bar 现在是 "1" (string)
+?>
+```
+
+## var_dump()
+```PHP
+void var_dump (mixed $expressing [,mixed $...])
+```
+此函数显示关于一个或多个表达式的结构信息,包括表达式的类型与值.数组将递归展开值,通过缩进显示其结构.
+**Tip** 和直接将结果输出到浏览器一样,可使用输出控制函数来捕获当前函数的输出,然后(例如)保存到一个 string 中.
+
+|参数|描述|
+|---|---|
+|expression|你要打印的变量.|
+
+Example #1 var_dump() 例子
+```PHP
+<?php
+$a = array(1,2,array("a","b","c"));
+var_dump($a);
+?>
+```
+
+输出结果:
+
+![var_dump1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/var_dump1.png)
+
+```PHP
+<?php
+$b = 3.1;
+$c = true;
+var_dump($b,$c);
+?>
+```
+
+输出结果:
+
+![var_dump2.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/var_dump2.png)
