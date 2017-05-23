@@ -244,3 +244,52 @@ var_dump($b,$c);
 输出结果:
 
 ![var_dump2.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/var_dump2.png)
+
+## isset()
+```PHP
+bool isset ( mixed $var [, mixed $... ] )
+```
+isset() 函数用于检验是否设置,并且不是 NULL.
+
+|参数|描述|
+|---|---|
+|var|要检查的变量.|
+|...|其他变量.|
+
+返回值:如果 var 存在并且值不是 NULL 则返回 TRUE,否则返回 FALSE.
+
+**Warning**:isset() 只能用于变量,因为传递任何其他参数都将造成解析错误.若想检测常亮是否已设置,可使用 defined() 函数.
+
+**Note**:因为 isset() 是一个语言构造器而不是一个函数,不能被可变函数调用.
+
+**Note**:如果使用 isset() 来检查对象无法访问的属性,如果  _\_isset() 方法已经定义则会调用这个重载方法.
+Example #1 isset() 例子
+```PHP
+<?php
+
+$var = '';
+
+// 结果为 TRUE,所以后边的文本将被打印出来.
+if(isset$var()){
+    echo "This var is set so I will print.";
+}
+
+// 后边的例子中,我们将使用 var_dump 输出 isset() 的返回值.
+// the return value of isset().
+$a = "test";
+$b = "anothertest";
+
+var_dump(isset($a)); // TRUE
+var_dump(isset($a,$b)); //TRUE
+
+unset($a);
+
+var_dump(isset($a)); //FALSE
+var_dump(isset($a,$b)); //FALSE
+
+$foo = NULL;
+var_dump(isset($foo)); // FALSE
+
+?>
+```
+![isset1.png]()
