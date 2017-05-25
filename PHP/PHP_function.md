@@ -292,4 +292,4 @@ var_dump(isset($foo)); // FALSE
 
 ?>
 ```
-![isset1.png]()
+![isset1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/isset1.png)
