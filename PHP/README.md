@@ -330,6 +330,36 @@ if ($fst === $str){
 }
 ?>
 ```
+
+## 变量
+### 变量范围
+
+变量的范围即它定义的上下文背景(也就是它的生效范围).大部分的 PHP 变量只有一个单独的范围.这个单独的范围跨度同样包含了 include 和 require 引入的文件.例如:
+
+```PHP
+<?php
+$a = 1;
+include 'b.inc';
+?>
+```
+这里的变量 $a 将会在包含文件 b.inc 中生效.但是,在用户自定义函数中,一个局部函数范围将被引入.任何用于函数内部的变量按缺省情况将被限制在局部函数范围内.例如:
+
+```PHP
+<?php
+$a = 1; /* global scope */
+
+function Test()
+{
+    echo $a; /* reference to local scope variable */
+}
+
+Test();
+?>
+```
+
+![variable.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/variable1.png)
+
+这个脚本不会有任何输出,因为 echo 语句引用了一个局部版本的变量 $a ,而且在这个范围内,它并没有被赋值.你可能注意到 PHP 的全局变量和 C 语言有一点点不同,在 C 语言中,全局变量在函数中自动生效,除非被局部变量覆盖.这可能引起一些问题,有些人可能不小心就改变了一个全局变量.PHP 中全局变量在函数中使用时必须声明为 global .
 ## 流程控制
 ### 流程控制的替代语法
 
