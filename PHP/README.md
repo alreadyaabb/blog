@@ -669,6 +669,10 @@ if(isset($_POST['action'])&&$_POST['action'] == 'submitted')
 }
 ?>
 ```
+运行结果:
+
+![variables2.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/variables2.png)
+
 #### IMAGE SUBMIT 变量名
 当提交表单时,可以用一幅图像代替标准的提交按钮,用类似这样的标记:
 ```HTML
@@ -689,6 +693,7 @@ PHP 透明地支持 >> RFC 6265 定义中的 HTTP cookies.Cookies 是一种在�
 
 这将会建立两个单独的 cookie,尽管 MyCookie 在脚本中是一个单一的数组.如果想在仅仅一个 cookie 中设定多个值,考虑先在值上使用 serialize() 或 explode().
 注意在浏览器中一个 cookie 会替换掉上一个同名的 cookie,除非路径或者域不同.因此对于购物车程序可以保留一个计数器并一起传递,例如:
+
 Example #4 一个 setcookie() 的示例
 
 ```PHP
