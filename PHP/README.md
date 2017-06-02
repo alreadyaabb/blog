@@ -686,9 +686,11 @@ PHP 透明地支持 >> RFC 6265 定义中的 HTTP cookies.Cookies 是一种在�
     setcookie("MyCookie[bar]",'Testing 2',time()+3600);
 ?>
 ```
+
 这将会建立两个单独的 cookie,尽管 MyCookie 在脚本中是一个单一的数组.如果想在仅仅一个 cookie 中设定多个值,考虑先在值上使用 serialize() 或 explode().
 注意在浏览器中一个 cookie 会替换掉上一个同名的 cookie,除非路径或者域不同.因此对于购物车程序可以保留一个计数器并一起传递,例如:
 Example #4 一个 setcookie() 的示例
+
 ```PHP
 <?php
 if(isset($_COOKIE['count'])){
@@ -700,6 +702,19 @@ setcookie('count',$count,time()+3600);
 sercookie("Cart[$count]",$item,time()+3600);
 ?>
 ```
+
+#### 变量名中的点
+通常,PHP 不会改变传递给脚本中的变量名.然而应该注意到点(句号)不是 PHP 变量名中的合法字符.至于原因,看看:
+```PHP
+<?php
+$varname.ext; /* 非法变量名 */
+?>
+```
+这时,解析器看到是一个名为 $varname 的变量,后面跟着一个字符串连接运算符,后面跟着一个裸字符串(即没有加引号的字符串,且不匹配任何已知的键名或保留字)'ext'.很明显这不是想要的结果.
+出于此原因,要注意 PHP 将会自动将变量名中的点替换成下划线.
+
+#### 确定变量类型
+因为 PHP 会判断变量类型并在需要时进行转换(通常情况下),因此在某一时刻给定的变量是何种类型并不明显.PHP 包括几个函数可以判断变量的类型,例如:gettype(),is_array(),is_float(),is_int(),is_object() 和 is_string().
 ## 流程控制
 ### 流程控制的替代语法
 
