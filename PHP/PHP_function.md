@@ -312,3 +312,98 @@ import_request_variables("gP","rvar");
 echo $rvar_foo;
 ?>
 ```
+## define()
+```PHP
+bool define(string $name,mixed $value[,bool $case_insensitive = false])
+```
+在运行时定义一个常量.
+
+|参数|说明|
+|:--:|----|
+|name|常量名.|
+|value|常量的值;在 PHP 5 中,value 必须是标量(integer,float,string,boolean,NULL)在 PHP 7 中还允许是个 array 的值.|
+|case_insensitive|如果设置为 TRUE ,该常量则大小写不敏感.默认是大小写敏感的.比如,CONSTANT 和 Constant 代表了不同的值.|
+
+返回值:成功时返回 TRUE,或者在失败时返回 FALSE.
+
+**Warning** 常量还可以定义为 resource 类型,但并不推荐这样做,因为可能会有不可预知的行为发生.
+
+**Note**:大小写不敏感的常量以小写的方式存储.
+
+Example #1 定义常量
+```PHP
+<?php
+define("CONSTANT","Hello world.");
+echo CONSTANT; // 输出 "Hello world."
+echo Constant; // 输出 "Constant"并导致 Notice
+
+define("GREETING","Hello you.",true);
+echo GREETING; // 输出 "Hello you."
+echo Greeting; // 输出 "Hello you."
+
+// PHP 7 起就可以运行了
+define('ANIMALS',array(
+    'dog',
+    'cat',
+    'bird'
+));
+echo ANIMALS[1]; // 输出 "cat"
+
+?>
+```
+![define1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/define1.png)
+
+## defined()
+```PHP
+bool defined(string $name)
+```
+检查该名称的常量是否已定义.
+
+|参数|说明|
+|:--:|----|
+|name|常量的名称.|
+
+返回值:如果名称 name 的常量已定义,返回 TRUE;未定义则返回 FALSE.
+**Note**:如果你要检查一个变量是否存在,请使用 isset().defined() 函数仅对 constants 有效.如果你要检测某个函数是否存在,使用 function_exists().
+
+Example #1 检查常量
+```PHP
+<?php
+/* Note the use of quotes, this is important. This example is checking
+ * if the string 'TEST' is the name of a constant named TEST */
+ if(defined('TEST')){
+     echo TEST;
+ }
+ ?>
+```
+
+## get_defined_constants()
+```PHP
+array get_defined_constants([bool $categorize = false])
+```
+返回当前所有已定义的常量名和值.这包含 define() 函数所创建的,也包含了所有扩展所创建的.
+
+|参数|说明|
+|:--:|----|
+|categorize|让此函数返回一个多维数组,分类为第一维的键名,常量和它们的值位于第二维.|
+
+返回值:返回的数组为 常量名=>常量值,也可以按注册变量的扩展名称来分组.
+
+Example #0
+```PHP
+<?php
+define("MY_CONSTANT",1);
+print_r(get_defined_constants(true));
+?>
+```
+由于结果过于长，笔者只节选了部分结果，以上例程的输出类似于:
+![get_defined_constants1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/get_defined_constants1.png)
+
+Example #1 get_defined_constants() 例子
+```PHP
+<?php
+print_r(get_defined_constants());
+?>
+```
+以上例程的输出类似于:
+![get_defined_constants2.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/get_defined_constants2.png)
