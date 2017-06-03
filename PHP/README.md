@@ -786,6 +786,7 @@ echo CONSTANT;
 ### 魔术常量
 PHP 向它运行的任何脚本提供了大量的与定义常量.不过很多常量都是由不同的扩展库定义的,只有在加载了这些扩展库时才会出现,或者动态加载后,或者在编译时已经包括进去了.
 有八个魔术常量它们的值随着它们在代码中的位置改变而改变.例如__LINE__的值就依赖于它在脚本中所处的行来决定.这些特殊的常量不区分大小写,如下:
+
 Table 1. 几个 PHP 的"魔术常量"
 
 |名称|说明|
@@ -798,6 +799,34 @@ Table 1. 几个 PHP 的"魔术常量"
 |__TRAIT__|Trait 的名字(PHP 5.4.0 新加).自 PHP 5.4 起此常量返回 trait 被定义时的名字(区分大小写).Trait 名包括其被声明的作用区域(例如 Foo\Bar).|
 |__METHOD__|类的方法名(PHP 5.0.0 新加).返回该方法被定义时的名字(区分大小写).|
 |__NAMESPACE__|当前命名空间的名称(区分大小写).此常量是在编译时定义的(PHP 5.3.0 新增).|
+
+下面我将举例展示上述几个"魔术常量":
+
+```PHP
+<?php
+echo __LINE__."\n";
+echo __FILE__."\n";
+echo __DIR__."\n";
+function test()
+{
+    echo __FUNCTION__;
+}
+class Student{
+    function say(){
+        echo __CLASS__;
+    }
+    function magic(){
+        echo __METHOD__;
+    }
+}
+echo __NAMESPACE__;
+$a = new Student();
+$a -> say();
+$a -> magic();
+?>
+```
+![magic1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/magic1.png)
+
 ## 流程控制
 ### 流程控制的替代语法
 
