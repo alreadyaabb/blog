@@ -827,6 +827,131 @@ $a -> magic();
 ```
 ![magic1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/magic1.png)
 
+## 表达式
+
+表达式是 PHP 最重要的基石.在 PHP 中,几乎所写的任何东西都是一个表达式.简单但却最精确的定义一个表达式的方式就是"任何有值的东西".
+最基本的表达式形式是常量和变量.像"$a=5".
+稍微复杂的表达式例子就是函数.例如,考虑下面的函数:
+```PHP
+<?php
+function foo()
+{
+    return 5;
+}
+?>
+```
+函数表达式的值即为它们的返回值.
+下面的例子有助于理解前、后递增和表达式:
+```PHP
+<?php
+function double($i)
+{
+    return $i*2;
+}
+$b = $a = 5; /* assign the value five into the variable $a and $b */
+$c = $a++; /* post-increment, assign original value of $a (5) to $c */
+$e = $d ++$b; /*pre-increment, assign the incremented value of $b (6) to $d and $e */
+/* at this point, both $d and $e are equal to 6 */
+$f = double($d++); /* assign twice the value of $d before the increment, 2*6 = 12 to $f */
+$g = double(++$e); /* assign twice the value of $e after the increment, 2*7 = 14 to $g */
+$h = $g += 10; /* first, $g is incremented by 10 and ends with the value of 24. the value of the assignment (24) is then assigned into $h, and $h ends with the value of 24 as well. */
+?>
+```
+
+## 运算符
+运算符是可以通过给出的一或多个值(用编程行话来说,表达式)来产生另一个值(因为整个结构成为一个表达式)的东西.
+运算符可按照其能接受几个值来分组.分为以下几类:
+
+* 一元运算符
+1. !
+2. ++
+3. ...
+* 二元运算符
+1. +
+2. -
+3. ...
+* 三元运算符
+1. ?:
+2. ...
+
+### 运算符优先级
+运算符优先级指定了两个表达式绑定得有多"紧密".例如,表达式 1+5*3 的结果是 16 而不是 18 是因为乘号("*")的优先级比加号("+")高.必要时可以用括号来强制改变优先级.例如:(1+5)*3 的值为 18.
+如果运算符优先级相同,那运算符的结合方向决定了该如何运算.例如,"-"是左联的,那么 1-2-3 就等同于(1-2)-3 并且结果是 -4.另外一方面,"="是右联的,所以 $a=$b=$c 等同于 $a=($b=$c).
+没有结合的相同优先级的运算符不能连在一起使用,例如 1<2>1 在 PHP 是不合法的.但另外一方面表达式 1<=1==1 是合法的,因为 == 的优先级低于 <=.
+Table 1.运算符优先级
+
+|结合方向|运算符|附加信息|
+|:------:|------|--------|
+|无|clone new|clone 和 new|
+|左|[|array()|
+|右|**|算术运算符|
+|右|++ -- ~ (int)(float)(string)(array)(object)(bool)@|类型和递增/递减|
+|无|instanceof|类型|
+|右|!|逻辑运算符|
+|左|*/%|算术运算符|
+|左|+ - .|算数运算符和字符运算符|
+|左|<< >>|位运算符|
+|无|< <= > >=|比较运算符|
+|无|== != === !== <> <=>|比较运算符|
+|左|&|位运算符|
+|左|^|位运算符|
+|左|/|位运算符|
+|左|&&|逻辑运算符|
+|左|//|逻辑运算符|
+|左|??|比较运算符|
+|左|?:|ternary|
+|right|= += -= *= **= /= .= %= &= /= ^= <<= >>=|赋值运算符|
+|左|and|逻辑运算符|
+|左|xor|逻辑运算符|
+|左|or|逻辑运算符|
+
+Example #1 结合方向
+```PHP
+<?php
+$a = 3 * 3 % 5; // (3*3) % 5 = 4
+// ternary operator associativity differs from C/C++
+$a = true ? 0 : true ? 1 : 2; // (true ? 0 : true) ? 1 : 2 = 2
+
+$a = 1;
+$b = 2;
+$a = $b += 3; // $a = ($b += 3) -> $a = 5, $b = 5
+?>
+```
+Example #2 Undefined order of evaluation
+```PHP
+<?php
+$a = 1;
+echo $a + $a++; // may print either 2 or 3
+$i = 1;
+$array[$i] = $i++; // may set either index 1 or 2
+?>
+```
+**Note**: 尽管 = 比其它大多数的运算符的优先级低,PHP 仍旧允许类似如下的表达式:if(!$a=foo()),在此例中 foo() 的返回值被赋给了 $a.
+
+### 算数运算符
+Table 1.算数运算符
+
+|例子|名称|结果|
+|:--:|----|----|
+|-$a|取反|$a 的负值.|
+|$a+$b|加法|$a 和 $b 的和.|
+|$a-$b|减法|$a 和 $b 的差.|
+|$a*$b|乘法|$a 和 $b 的积.|
+|$a/$b|除法|$a 和 $b 的商.|
+|$a%$b|取模|$a 和 $b 的余数.|
+|$a**$b|Exponentiation|Result of raising $a to the $b'th power.Introduced in PHP 5.6.|
+
+除法运算符总是返回浮点数.只有在下列情况下例外:两个操作数都是整数(或字符串转换成的整数)并且正好能整除,这时它返回一个整数.
+取模运算符的操作数在运算之前都会转换成整数(除去小数部分).
+取模运算符 % 的结果和被除数的符号(正负号)相同.即 $a % $b 的结果和 $a 的结果相同.例如:
+```PHP
+<?php
+echo (5%3)."\n"; // prints 2
+echo (5%-3)."\n"; // prints 2
+echo (-5%3)."\n"; // prints -2
+echo (-5%-3)."\n"; // prints -2
+?>
+```
 ## 流程控制
 ### 流程控制的替代语法
 
