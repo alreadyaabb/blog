@@ -952,6 +952,63 @@ echo (-5%3)."\n"; // prints -2
 echo (-5%-3)."\n"; // prints -2
 ?>
 ```
+
+### 赋值运算符
+
+基本的赋值运算符是"=".一开始可能会以为它是"等于",其实不是的.它实际上意味着把右边表达式的值赋给左边的运算数.
+在基本赋值运算符之外,还有适合于所有二元算术,数组集合和字符串运算符的"组合运算符",这样可以在一个表达式中使用它的值并把表达式的结果赋给它,例如:
+```PHP
+<?php
+$a = 3;
+$a += 5; // sets $a to 8, as if we had said: $a = $a + 5;
+$b = "Hello";
+$b .="There!"; // set $b to "Hello There!", just like $b = $b."There";
+?>
+```
+赋值运算的原变量的值拷贝到新变量中(传值赋值),所以改变其中一个并不影响另一个.这也适合于在密集循环中拷贝一些值例如大数组.
+在 PHP 中普通的传值赋值行为有个例外就是碰到对象 object 时,在 PHP 5 中是以引用赋值的,除非明确使用了 clone 关键字来拷贝.
+
+#### 引用赋值
+PHP 支持引用赋值,使用"$var = &$othervar;"语法.引用赋值意味着两个变量指向了同一个数据,没有拷贝任何东西.
+
+Example #1 引用赋值
+```PHP
+<?php
+$a = 3;
+$b = &$a; // $b 是 $a 的引用
+
+print "$a\n"; // 输出3
+print "$b\n"; // 输出3
+
+$a = 4; // 修改 $a
+
+print "$a\n"; // 输出4
+print "$b\n"; // 也输出4,因为 $b 是 $a 的引用,因此也被改变
+?>
+```
+自 PHP 起,new 运算符自动返回一个引用,因此再对 new 的结果进行引用赋值在 PHP 5.3 以及以后版本中会发出一条 E_DEPRECATED 错误信息,在之前版本会发出一条 E_STRICT 错误信息.
+
+例如以下代码将产生警告:
+```PHP
+<?php
+class C {}
+
+/* The following line generates the following error message:
+ * Deprecated: Assigning the return value of new by reference is deprecated in ...
+ */
+ $o = &new C;
+ ?>
+```
+
+### 位运算符
+位运算符允许对整型数中指定的位进行求值和操作.
+
+Table 1.位运算符
+
+|例子|名称|结果|
+|----|----|----|
+|$a & $b|And(按位与)|将把 $a 和 $b 中都为 1 的位设为 1.|
+|$a /| $b|Or(按位或)|将把 $a 和 $b 中任何一个为 1 的位设为 1.|
 ## 流程控制
 ### 流程控制的替代语法
 
