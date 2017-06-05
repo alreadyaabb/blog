@@ -1074,6 +1074,111 @@ Table 1.比较运算符
 |$a<>$b|不等|TRUE,如果类型转换后 $a 不等于 $b.|
 |$a!==$b|不全等|TRUE,如果 $a 不等于 $b,或者它们的类型不同.|
 |$a<$b|小于|TRUE,如果 $a 严格小于 $b.|
+|$a>$b|大于|TRUE,如果 $a 严格大于 $b.|
+|$a<=$b|小于等于|TRUE,如果 $a 小于或者等于 $b.|
+|$a>=$b|大于等于|TRUE,如果 $a 大于或者等于 $b.|
+|$a<=>$b|结合比较运算|当 $a小于、等于、大于 than $b 时分别返回一个小于、等于、大于0的 integer 值.PHP 7 开始提供.|
+|$a??$b??$c|NULL 合并操作符|从左往右第一个存在且不为 NULL 的操作数.如果都没有定义且不为 NULL ,则返回 NULL.PHP 7 开始提供.|
+
+**Note**:如果比较一个数字和字符串或者比较涉及到数字内容的字符串,则字符串会被转换为数值并且比较按照数值来进行.当用 === 或 !== 进行比较时则不进行类型转换,因为此时类型和数值都要比对.
+```PHP
+<?php
+var_dump(0 == "a"); // 0 == 0 -> true
+var_dump("1" == "01"); // 1 == 1 -> true
+var_dump("10" == "1e1"); // 10 == 10 -> true
+var_dump(100 == "1e2"); // 100 == 100 -> true
+
+switch("a"){
+    case 0:
+        echo "0";
+        break;
+    case "a": // never reached because "a" is already matched with 0
+    echo "a";
+    break;
+}
+?>
+```
+
+```PHP
+<?php
+// Integers
+echo 1 <=> 1; // 0
+echo 1 <=> 2; // -1
+echo 2 <=> 1; // 1
+
+// Floats
+echo 1.5 <=> 1.5; // 0
+echo 1.5 <=> 2.5; // -1
+echo 2.5 <=> 1.5; // 1
+
+// Strings
+echo "a" <=> "a"; // 0
+echo "a" <=> "b"; // -1
+echo "b" <=> "a"; //1
+
+echo "a" <=> "aa"; // -1
+echo "zz" <=> "aa"; // 1
+
+// Arrays
+echo [] <=> []; // 0
+echo [1,2,3] <=> [1,2,3]; // 0
+echo [1,2,3] <=> []; // 1
+echo [1,2,3] <=> [1,2,1]; // 1
+echo [1,2,3] <=> [1,2,4]; // -1
+
+// Objects
+$a = (object)["a" => "b"];
+$b = (object)["a" => "b"];
+echo $a <=> $b; // -1
+
+$a = (object)["a" => "c"];
+$b = (object)["a" => "b"];
+echo $a <=> $b; // 1
+
+// only values are compared
+$a = (object)["a" => "b"];
+$b = (object)["b" => "b"];
+echo $a <=> $b; // 1
+?>
+```
+Table 2.比较多种类型
+
+|运算数 1 类型|运算数 2 类型|结果|
+|:-----------:|:-----------:|----|
+|null 或 string|string|将 NULL 转换为"",进行数字或词汇比较.|
+|bool 或 null|任何其它类型|转换为 bool,FALSE<TRUE>|
+|object|object|内置类可以定义自己的比较,不同类不能比较,相同类和数组同样方式比较属性(PHP 4 中),PHP 5 有其自己的说明.|
+|string,resource 或 number|string,resource 或 number|将字符串和资源转换成数字,按普通数学比较.|
+|array|array|具有较少成员的数组较小,如果运算数 1 中的键不存在于运算数 2 中则数组无法比较,否则挨个值比较.|
+|object|任何其它类型|object 总是更大|
+|array|任何其它类型|array 总是更大|
+
+Example #1 标准数组比较代码
+```PHP
+<?php
+// 数组是用标准比较运算符这样比较的
+function standard_array_compare($op1,$op2)
+{
+    if(count(%op1) < count($op2)){
+        return -1; // $op1 < $op2
+    } elseif(count($op1) > count($op2)){
+        return 1; // $op1 > $op2
+    }
+    foreach ($op1 as $key => $val){
+        if(!array_key_exists($key,$op2)){
+            return null; // uncomparable
+        } elseif($val < $op2[key]){
+            return -1;
+        } elseif($val > $op2[$key]){
+            return 1;
+        }
+    }
+    return 0; // $op1 == $op2
+}
+?>
+```
+
+Example #2 Transcription of standard array comparison
 ## 流程控制
 ### 流程控制的替代语法
 
