@@ -1008,7 +1008,72 @@ Table 1.位运算符
 |例子|名称|结果|
 |----|----|----|
 |$a & $b|And(按位与)|将把 $a 和 $b 中都为 1 的位设为 1.|
-|$a /| $b|Or(按位或)|将把 $a 和 $b 中任何一个为 1 的位设为 1.|
+|$a / $b|Or(按位或)|将把 $a 和 $b 中任何一个为 1 的位设为 1.|
+|$a ^ $b|Xor(按位异或)|将把 $a 和 $b 中一个为 1 另一个为 0 的位设为 1.|
+|~ $a|Not(按位取反)|将 $a 中为 0 的位设为 1,反之亦然.|
+|$a << $b|Shift left(左移)|将 $a 中的位向左移动 $b 次(每一次移动都表示"乘以 2")|
+|$a >> $b|Shift right(右移)|将 $a 中的位向右移动 $b 次(每一次移动都表示"除以 2")|
+
+Example #1 整数的 AND,OR 和 XOR 位运算符
+```PHP
+<?php
+/*
+ * Ignore the top section,
+ * it is just formatting to make output clearer.
+ */
+
+$format = '(%1$2d = %1$04b) = (%2$2d = %2$04b)'
+        . ' %3$s (%4$2d = %4$04b)' . "\n";
+
+echo <<<EOH
+ -----------    ----------  --  ----------
+ result         value       op  test
+ -----------    ----------  --  ----------
+EOH;
+
+/*
+ * Here are the examples.
+ */
+
+$values = array(0,1,2,4,8);
+$test = 1 + 4;
+
+echo "\n Bitwise AND \n";
+foreach ($values as $value){
+    $result = $value & $test;
+    printf($format,$result,$value,'&',$test);
+}
+
+echo "\n Bitwise Inclusive OR \n";
+foreach ($values as $value){
+    $result = $value | $test;
+    printf($format,$result,$value,'|',$test);
+}
+
+echo "\n Bitwise Exclusive OR (XOR) \n";
+foreach ($values as $value){
+    $result = $value ^ $test;
+    printf($format,$result,$value,'^',$test);
+}
+?>
+```
+以上例程会输出:
+![Bitwise1.png]()
+
+### 比较运算符
+
+比较运算符,如同它们名称所暗示的,允许对两个值进行比较.
+
+Table 1.比较运算符
+
+|例子|名称|结果|
+|:--:|----|----|
+|$a==$b|等于|TRUE,如果类型转换后 $a 等于 $b.|
+|$a===$b|全等|TRUE,如果 $a 等于 $b,并且它们的类型也相同.|
+|$a!=$b|不等|TRUE,如果类型转换后 $a 不等于 $b.|
+|$a<>$b|不等|TRUE,如果类型转换后 $a 不等于 $b.|
+|$a!==$b|不全等|TRUE,如果 $a 不等于 $b,或者它们的类型不同.|
+|$a<$b|小于|TRUE,如果 $a 严格小于 $b.|
 ## 流程控制
 ### 流程控制的替代语法
 
