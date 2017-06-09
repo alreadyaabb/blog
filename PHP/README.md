@@ -1340,6 +1340,7 @@ Table 1.逻辑运算符
 |!$a|Not(逻辑非)|TRUE,如果 $a 不为 TRUE.|
 |$a && $b|And(逻辑与)|TRUE,如果 $a 和 $b 都为 TRUE.|
 |$a // $b|Or(逻辑或)|TRUE,如果 $a 或 $b 任一为 TRUE.|
+
 "与"和"或"有两种不同形式运算符的原因是它们的运算的优先级不同(见运算符优先级).
 
 Example #1 逻辑运算符示例
@@ -1382,7 +1383,24 @@ var_dump($g,$h);
 ?>
 ```
 以上的例程输出类似于:
+
 ![logical1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/logical1.png)
+
+### 字符串运算符
+有两个字符串运算符.第一个是连接运算符("."),它返回其左右参数链接后的字符串.第二个是连接赋值运算符(".="),它将右边参数附加到左边的参数之后.
+
+```PHP
+<?php
+$a = "Hello";
+$b = $a."World!"; // now $b contains "Hello World!"
+
+$a = "Hello";
+$a .= "World!"; // now $a contains "Hello World!"
+?>
+```
+
+### 数组运算符
+
 References:
 
 * [Official Website](http://php.net)
