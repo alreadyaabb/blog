@@ -1490,6 +1490,91 @@ var_dump($a instanceof ParentClass);
 以上例程会输出:
 
 ![type2.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/type2.png)
+
+检查一个对象是否*不是*某个类的实例,可以使用逻辑运算符 not.
+Example #3 使用 instanceof 检查对象*不是*某个类的实例
+```PHP
+<?php
+class MyClass
+{
+}
+
+$a = new MyClass;
+var_dump(!($a instanceof stdClass));
+?>
+```
+以下例程会输出:
+
+![type3.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/type3.png)
+
+最后,instanceof 也可用于确定一个变量是不是实现了某个接口的对象的实例:
+
+Example #4 对接口使用 instanceof
+```PHP
+<?php
+interface MyInterface
+{
+}
+
+class MyClass implements MyInterface
+{
+}
+
+$a = new MyClass;
+
+var_dump($a instanceof MyCalss);
+var_dump($a instanceof MyInterface);
+?>
+```
+以上例程会输出:
+
+![type4.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/type4.png)
+
+虽然 instanceof 通常直接与类名一起使用,但也可以使用对象或字符串变量:
+Example #5 对其它变量使用 instaceof
+```PHP
+<?php
+interface MyInterface
+{
+}
+
+class MyClass implements MyInterface
+{
+}
+
+$a = new MyClass;
+$b = new MyClass;
+$c = 'MyClass';
+$d = 'NotMyClass';
+
+var_dump($a instanceof $b); // $b is an object of class MyClass
+var_dump($a instanceof $c); // $c is a string 'MyClass'
+var_dump($a instanceof $d); // $d is a string 'NotMyClass'
+?>
+```
+以上例程会输出:
+
+![type5.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/type5.png)
+
+如果被检测的变量不是对象,instanceof 并不发出任何错误信息而是返回FALSE.不允许用来检测常量.
+
+Example #6 用 instanceof 检测其它变量
+```PHP
+<?php
+$a = 1;
+$b = NULL;
+$c = imagecreate(5,5);
+var_dump($a instanceof stdClass); // $a is an integer
+var_dump($b instanceof stdClass); // $b is NULL
+var_dump($c instanceof stdClass); // $c is a resource
+var_dump(FALSE instanceof stdClass);
+?>
+```
+以上例程会输出:
+
+![type6.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/type6.png)
+
+instanceof 运算符是 PHP 5 引进的.在此之前用 is_a(),但是后来 is_a() 被废弃而用 instanceof 替代了.注意自 PHP 5.3.0 起,又恢复使用 is_a() 了.
 References:
 
 * [Official Website](http://php.net)
