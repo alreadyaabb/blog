@@ -407,3 +407,41 @@ print_r(get_defined_constants());
 ```
 以上例程的输出类似于:
 ![get_defined_constants2.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/get_defined_constants2.png)
+
+## is_a()
+is_a——如果对象属于该类或该类是此对象的父类则返回 TRUE
+```PHP
+bool is_a(object $object,string $class_name[,bool $allow_string = FALSE])
+```
+如果 object 是该类或该类是此对象的父类.
+
+|参数|说明|
+|----|----|
+|object|The tested object|
+|class_name|The class name|
+|allow_string|If this parameter set to FALSE,string class name as object is not allowed.This also prevents from calling autoloader if the class doesn't exist.|
+
+### 返回值
+
+Return TRUE if the object is of this class or has this class as one of its parents,FALSE otherwise.
+
+Example #1 is_a() 例子
+```PHP
+<?php
+//define a class
+class WidgetFactory
+{
+    var $oink = 'moo';
+}
+// create a new object
+$WF = new WidgetFactory();
+if(is_a($WF,'WidgetFactory')){
+    echo "yes,\$WF is still a WidgetFactory\n";
+}
+?>
+```
+以上例程输出结果为:
+
+![a_is1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/a_is1.png)
+
+
