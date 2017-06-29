@@ -1058,7 +1058,7 @@ foreach ($values as $value){
 ?>
 ```
 以上例程会输出:
-![Bitwise1.png]()
+![Bitwise1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/bitwise1.png)
 
 ### 比较运算符
 
@@ -1401,6 +1401,95 @@ $a .= "World!"; // now $a contains "Hello World!"
 
 ### 数组运算符
 
+Table 1.数组运算符
+
+|例子|名称|结果|
+|:--:|:--:|----|
+|$a + $b|联合|$a 和 $b 的联合.|
+|$a == $b|相等|如果 $a 和 $b 具有相同的键/值对则为 TRUE.|
+|$a === $b|全等|如果 $a 和 $b 具有相同的键/值对并且顺序和类型都相同则为 TRUE.|
+|$a != $b|不等|如果 $a 不等于 $b 则为 TRUE.|
+|$a <> $b|不等|如果 $a 不等于 $b 则为 TRUE.|
+|$a !== $b|不全等|如果 $a 不全等于 $b 则为 TRUE.|
+
++ 运算符把右边的数组元素附加到左边的数组后面,两个数组中都有的键名,则只用左边数组中的,右边的被忽略.
+
+```PHP
+<?php
+$a = array("a" => "apple","b" => "banana");
+$b = array("a" => "pear","b" => "strawberry","c" => "cherry");
+$c = $a + $b; // Union of $a and $b
+echo "Union of \$a and \$b: \n";
+var_dump($c);
+$c = $b + $a; // Union of $b and $a
+echo "Union of \$b and \$a: \n";
+var_dump($c);
+$a += $b; // Union of $a += $b is $a and $b
+echo "Union of \$a += \$b: \n";
+var_dump($a);
+?>
+```
+执行后,此脚本会显示:
+
+![op_array1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/op_array1.png)
+![op_array2.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/op_array2.png)
+
+数组中的单元如果具有相同的键名和值则比较时相等.
+
+Example #1 比较数组
+```PHP
+<?php
+$a = array("apple","banana");
+$b = array(1 => "banana","0" => "apple");
+
+var_dump($a == $b); // bool(true)
+var_dump($a === $b); // bool(false)
+?>
+```
+
+### 类型运算符
+instanceof 用于确定一个 PHP 变量是否属于某一类 class 的实例:
+
+Example #1 对类使用 instanceof
+```PHP
+<?php
+class MyClass
+{
+}
+
+class NotMyClass
+{
+}
+$a = new MyClass;
+
+var_dump($a instanceof MyClass);
+var_dump($a instanceof NotMyClass);
+?>
+```
+以上例程会输出:
+
+![type1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/type1.png)
+
+instanceof 也可用来确定一个变量是不是继承自某一父类的子类的实例:
+
+Example #2 对继承类使用 instanceof
+```PHP
+class ParentClass
+{
+}
+
+class MyClass extends ParentClass
+{
+}
+$a = new MyClass;
+
+var_dump($a instanceof MyClass);
+var_dump($a instanceof ParentClass);
+?>
+```
+以上例程会输出:
+
+![type2.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/type2.png)
 References:
 
 * [Official Website](http://php.net)
