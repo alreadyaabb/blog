@@ -313,8 +313,235 @@ switch ($beer)
 }
 ?>
 ```
-References:
 
+### declare
+
+declare 结构用来设定一段代码的执行指令.declare 的语法和其它流程控制结构相似:
+```PHP
+declare(directive){
+
+    statement
+}
+```
+directive 部分允许设定 declare 代码段的行为.目前只认识两个指令:ticks 以及 encoding.
+
+declare 代码段中的 statement 部分将被执行——怎样执行以及执行中有什么副作用出现取决于 directive 中设定的指令.
+
+declare 结构也可用于全局范围,影响到其后的所有代码(但如果有 declare 结构的文件被其它文件包含,则对包含它的父文件不起作用).
+```PHP
+<?php
+// these are the same:
+
+// you can use this:
+declare(ticks=1){
+    // entire script here
+}
+
+// or you can use this:
+declare(ticks=1);
+// entire script here
+?>
+```
+
+#### Ticks
+Tick (时钟周期)是一个在 declare 代码段中解释器每执行 N 条可计时的低级语句就会发生的事件.N 的值是在 declare 中的 directive 部分用 ticks=N 来指定的.
+不是所有语句都可计时.通常条件表达式和参数表达式都不可计时.
+在每个 tick 中出现的事件是由 register_tick_function() 来指定的.更多细节见下面的例子.注意每个 tick 中可以出现多个事件.
+
+Example #1 Tick 的用法示例
+```PHP
+<?php
+declare(ticks=1);
+
+// A function called on each tick event
+function tick_handler()
+{
+    echo "tick_handler() called\n";
+}
+
+register_tick_function('tick_handler');
+
+$a = 1;
+
+if($a > 0){
+    $a += 2;
+    print($a);
+}
+?>
+```
+Example #2 Ticks 的用法示例
+
+```PHP
+<?php
+
+function tick_handler()
+{
+    echo "tick_handler() called\n";
+}
+$a = 1;
+tick_handler();
+if($a > 0){
+    $a += 2;
+    tick_handler();
+    print($a);
+    tick_handler();
+}
+tick_handler();
+?>
+```
+
+#### Encoding
+可以用 encoding 指令来对每段脚本指定其编码方式.
+
+Example #3 对脚本指定编码方式
+```PHP
+<?php
+declare(encoding='ISO-8859-1');
+// code here
+?>
+```
+
+### return
+如果在一个函数中调用 return 语句,将立即结束此函数的执行并将它的参数作为函数的值返回.return 也会终止 eval() 语句或者脚本文件的执行.
+
+如果在全局范围中调用,则当前脚本文件中止运行.如果当前脚本文件是被 include 的或者 require 的,则控制交回调用文件.此外,如果当前脚本是被 include 的,则 return 的值会被当作 include 调用的返回值.如果在主脚本文件调用 return,则脚本中止运行.如果当前脚本文件是在 php.ini 中的配置选项 auto_prepend_file 或者 auto_append_file 所指定的,则此脚本文件中止运行.
+
+**Note**:注意既然 return 是语言结构而不是函数,因此其参数没有必要用括号将其括起来.通常都不用括号,实际上也应该不用,这样可以降低 PHP 的负担.
+
+**Note**:如果没有提供参数,则一定不能用括号,此时返回 NULL.如果调用 return 时加上了括号却又没有参数会导致解析错误.
+
+**Note**:当用引用返回值时*永远不要*使用括号,这样行不通.只能通过引用返回变量,而不是语句的结果.如果使用 return($a);时其实不是返回一个变量,而是表达式($a)的值(当然,此时该值也正是 $a 的值).
+
+### require
+require 和 include 几乎完全一样,除了处理失败的方式不同之外.require 在出错时产生 E_COMPILE_ERROR 级别的错误.换句话说将导致脚本中止而 include 只产生警告(E_WARNING),脚本会继续运行.
+
+### include
+include 语句包含并运行指定文件.
+以下文档也适用于 require.
+被包含文件先按参数给出的路径寻找,如果没有给出目录(只有文件名)时则按照 include_path 指定的目录寻找.如果在 include_path 下没找到该文件则 include 最后才在调用脚本文件所在的目录和当前工作目录下寻找.如果最后仍未找到文件则 include 结构会发出一条警告;这一点和 require 不同,后者会发出一个致命错误.
+
+如果定义了路径——不管是绝对路径(在 Windows 下以盘符或者\开头,在 Unix/Linux 下以/开头)还是当前目录的相对路径(以.或者..开头)——include_path 都会被完全忽略.例如一个文件以../开头,则解析器会在当前目录的父目录下寻找该文件.
+
+当一个文件被包含时,其中所包含的代码继承了 include 所在行的变量范围.从该处开始,调用文件在该行处可用的任何变量在被调用的文件中也都可用.不过所有在包含文件中定义的函数和类都具有全局作用域.
+
+Example #1 基本的 include 例子
+```PHP
+vars.php
+<?php
+$coler = 'green';
+$fruit = 'apple';
+?>
+test.php
+<?php
+echo "A $color $fruit"; // A
+include 'vars.php';
+echo "A $color $fruit"; // A green apple
+?>
+```
+如果 include 出现于调用文件中的一个函数里,则被调用的文件中所包含的所有代码将表现得如同它们是在该函数内部定义的一样.所以它将遵循该函数的变量范围.此规则的一个例外是魔术常量,他们是在发生包含之前就已被解析器处理的.
+
+Example #2 函数中的包含
+```PHP
+<?php
+function foo()
+{
+    global $color;
+    include 'vars.php';
+    echo "A $color $fruit";
+}
+/* vars.php is in the scope of foo() so *
+ * $fruit is NOT available outside of this *
+ * scope. $color is because we declared it *
+ * as global. */
+
+foo(); // A green apple
+echo "A $color $fruit"; // A green
+?>
+```
+当一个文件被包含时,语法解析器在目标文件的开头脱离 PHP 模式并进入 HTML 模式,到文件结尾处恢复.由于此原因,目标文件中需要作为 PHP 代码执行的任何代码都必须被包括在有效的 PHP 起始和结束标记之中.
+
+Example #3 通过 HTTP 进行的 include
+```PHP
+<?php
+/* This example assumes that www.example.com is configured to parse .php *
+ * files and not .txt files. Also,'Works' here means that the variables *
+ * $foo and $bar are available within the included file. */
+ 
+ // Won't work;file.txt wasn't handled by www.example.com as PHP
+ include'http://www.example.com/file.txt?foo=1&bar=2;
+
+// Won't work;looks for a file named 'file.php?foo=1&bar-2' on the
+// local filesystem.
+include 'file.php?foo=1&bar=2';
+
+// Works.
+include 'http://www.example.com/file.php?foo=1&bar=2;
+
+$foo = 1;
+$bar = 2;
+include 'file.txt'; // Works.
+include 'file.php'; // Works.
+?>
+```
+因为 include 是一个特殊的语言结构,其参数不需要括号.在比较其返回值时要注意.
+
+Example #4 比较 include 的返回值
+```PHP
+<?php
+// won't work, evaluated as include(('vars.php') == 'OK'),i.e. include('')
+if (include('vars.php') == 'OK') {
+    echo 'OK';
+}
+// works
+if ((include 'vars.php') == 'OK') {
+    echo 'OK';
+}
+?>
+```
+Example #5 include 和 return 语句
+```PHP
+return.php
+<?php
+$var = 'PHP';
+return $var;
+?>
+
+noreturn.php
+<?php
+$var = 'PHP';
+?>
+
+testreturns.php
+<?php
+$foo = include 'return.php';
+echo $foo; // prints 'PHP'
+$var = include 'noreturn.php';
+echo $bar; // prints 1
+?>
+```
+$bar 的值为1是因为 include 成功运行了.注意以上例子中的区别.第一个在被包含的文件中用了 return 而另一个没有.如果文件不能被包含,则返回 FALSE 并发出一个 E_WARNING 警告.
+
+如果在包含文件中定义有函数,这些函数不管是在 return 之前还是之后定义的,都可以独立在主文件中使用.如果文件被包含两次,PHP 5发出致命错误因为函数已经被定义,但是 PHP 4不会对在 return 之后定义的函数报错.推荐使用 include_once 而不是检查文件是否包含并在包含文件中有条件返回.
+
+另一个将 PHP 文件"包含"到一个变量中的方法是用输出控制函数结合 include 来捕获其输出,例如:
+
+Example #6 使用输出缓冲来将 PHP 文件包含入一个字符串
+```PHP
+<?php
+$string = get_include_contents('somefile.php');
+function get_include_contents($filename){
+    if(is_file($filename)){
+        ob_start();
+        include $filename;
+        $contents = ob_get_contents();
+        ob_end_clean();
+        return $contents;
+    }
+    return false;
+}
+?>
+```
+References:
 * [Official Website](http://php.net)
 * [PSR](http://www.php-fig.org/)
 * [PHP100](http://www.php100.com/)
