@@ -541,6 +541,73 @@ function get_include_contents($filename){
 }
 ?>
 ```
+
+### require_once
+require_once 语句和 require 语句完全相同,唯一区别是 PHP 会检查该文件是否已经被包含过,如果是则不会再次包含.
+
+### include_once
+include_once 语句在脚本执行期间包含并运行指定文件.此行为和 include 语句类似,唯一区别是如果该文件中已经被包含过,则不会再次包含.如同此语句名字暗示的那样,只会包含一次.
+
+include_once 可以用于在脚本执行期间同一个文件有可能被包含超过一次的情况下,想确保它只被包含一次以避免函数重定义,变量重新赋值等问题.
+
+**Note**:在 PHP 4中,_once 的行为在不区分大小写字母的操作系统中有所不同,例如:
+
+Example #1 include_once 在 PHP 4运行于不区分大小写的操作系统中
+```PHP
+include_once "a.php"; // 这将包含 a.php
+include_once "A.php"; // 这将再次包含 a.php!(仅 PHP 4)
+?>
+```
+
+### goto
+goto 操作符可以用来跳转到程序中的另一个位置.该目标位置可以用目标名称加上冒号来标记,而跳转指令是 goto 之后接上目标位置的标记.PHP 中的 goto 有一定限制,目标位置只能位于同一个文件和作用域,也就是说无法跳出一个函数或类方法,也无法跳入到另一个函数.也无法跳入到任何循环或者 switch 结构中.可以跳出循环或者 swtich ,通常的用法是用 goto 代替多层的 break.
+
+Example #1 goto 示例
+```PHP
+<?php
+goto a;
+echo 'Foo';
+
+a:
+echo 'Bar';
+?>
+```
+以上例程会输出:
+
+![goto1.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/goto1.png)
+
+Example #2 goto 跳出循环示例
+```PHP
+<?php
+for($i=0,$j=50;$i<100;$i++){
+    while($j--){
+        if($j==17) goto end;
+    }
+}
+echo "i = $i";
+end:
+echo 'j hit 17';
+?>
+```
+以上例程会输出:
+
+![goto2.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/goto2.png)
+
+Example #3 以下写法无效
+```PHP
+<?php
+goto loop;
+for($i=0,$j=50;$i<100;$i++){
+    while($j--){
+        loop:
+    }
+}
+echo "$i = $i";
+?>
+```
+以上例程会输出:
+
+![goto3.png](https://github.com/alreadyaabb/blog/blob/append_php_info/images/goto3.png)
 References:
 * [Official Website](http://php.net)
 * [PSR](http://www.php-fig.org/)
